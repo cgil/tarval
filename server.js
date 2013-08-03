@@ -25,21 +25,29 @@ wsServer.on('request', function(request) {
 	console.log((new Date()) + 'Connection accepted.');
 
 	conn.on('phone-reg', function(msg) {
-		var data = JSON.parse(msg.utf8Data);
+		var pin = (Math.random(1) * 10000).toFixed(0);
+		var resp = { "p": } // p stands for pin
+		
+		connStor[pin] = [];
 
-		connStor[data.pin] = null;
+		conn.sendUTF(resp);
 	});
 
 	conn.on('browser-reg', function(msg) {
 		var data = JSON.parse(msg.utf8Data);
 
-		connStor[data.pin] = conn;
+		if (connStor[data.p].indexOf(conn) == -1) {
+			connStor[data.p].push(conn);
+		}
 	});
 
 	conn.on('phone-cmd', function(msg) {
 		var data = JSON.parse(msg.utf8Data);
+		var stor = connStor[data.p];
 
-		connStor[msg.pin].sendUTF(data);
+		for (var i = 0; i < stor.length; i++) {
+			stor[i].sendUTF(msg);
+		}
 	});
 
 	conn.on('close', function(reasonCode, description) {
