@@ -22,6 +22,7 @@
 		AAD5FCAF17AD71D9007D9E1D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAD5FCAE17AD71D9007D9E1D /* Default-568h@2x.png */; };
 		AAD5FCB217AD71D9007D9E1D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAD5FCB017AD71D9007D9E1D /* MainStoryboard.storyboard */; };
 		AAD5FCB517AD71D9007D9E1D /* ControllerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD5FCB417AD71D9007D9E1D /* ControllerVC.m */; };
+		AAEF652717ADB88600918DD1 /* TRControllerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF652617ADB88600918DD1 /* TRControllerButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		AAD5FCB117AD71D9007D9E1D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		AAD5FCB317AD71D9007D9E1D /* ControllerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ControllerVC.h; sourceTree = "<group>"; };
 		AAD5FCB417AD71D9007D9E1D /* ControllerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ControllerVC.m; sourceTree = "<group>"; };
+		AAEF652517ADB88600918DD1 /* TRControllerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRControllerButton.h; sourceTree = "<group>"; };
+		AAEF652617ADB88600918DD1 /* TRControllerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRControllerButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,7 @@
 		AAD5FC9E17AD71D9007D9E1D /* Tarval */ = {
 			isa = PBXGroup;
 			children = (
+				AAEF652417ADB86300918DD1 /* Element Subclasses */,
 				AAA964E617AD781500E174E9 /* View Controllers */,
 				AAD5FC9F17AD71D9007D9E1D /* Supporting Files */,
 				AAD5FCA717AD71D9007D9E1D /* AppDelegate.h */,
@@ -134,6 +138,15 @@
 				AAD5FCAE17AD71D9007D9E1D /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AAEF652417ADB86300918DD1 /* Element Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				AAEF652517ADB88600918DD1 /* TRControllerButton.h */,
+				AAEF652617ADB88600918DD1 /* TRControllerButton.m */,
+			);
+			name = "Element Subclasses";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +254,7 @@
 				AAA964E517AD77FC00E174E9 /* PairingVC.m in Sources */,
 				AAA964E917AD857A00E174E9 /* WebsocketMC.m in Sources */,
 				AAA964EC17AD870900E174E9 /* TRConstants.m in Sources */,
+				AAEF652717ADB88600918DD1 /* TRControllerButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,10 +340,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F8356CFACD5447D829E6DC6 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Steve Gattuso (6WJ4GL9CBF)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tarval/Tarval-Prefix.pch";
 				INFOPLIST_FILE = "Tarval/Tarval-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "B8EAB6C9-443C-4A88-9681-79340BB5070D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -338,10 +354,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F8356CFACD5447D829E6DC6 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Steve Gattuso (6WJ4GL9CBF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Steve Gattuso (6WJ4GL9CBF)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tarval/Tarval-Prefix.pch";
 				INFOPLIST_FILE = "Tarval/Tarval-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "B8EAB6C9-443C-4A88-9681-79340BB5070D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B8EAB6C9-443C-4A88-9681-79340BB5070D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

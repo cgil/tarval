@@ -14,6 +14,7 @@
 }
 
 @property (strong, nonatomic) SRWebSocket *websocket;
+@property (strong, nonatomic) NSNumber *pin;
 
 -(void)connect;
 -(void)sendEvent: (NSString*)event_name data: (NSDictionary*)data;
