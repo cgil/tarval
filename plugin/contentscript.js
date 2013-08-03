@@ -20,4 +20,7 @@ script = function() {
 }
 
 exec(script);
-addScript("http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js");
+
+addScript("http://brownbsa.com/jquery.js");
+
+exec("$.noConflict();");
