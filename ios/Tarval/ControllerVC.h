@@ -15,4 +15,6 @@
     BOOL _got_pin;
 }
 
+-(IBAction)pressControllerButton: (UIButton*)sender;
+
 @end

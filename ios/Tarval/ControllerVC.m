@@ -10,6 +10,7 @@
 #import "PairingVC.h"
 #import "WebsocketMC.h"
 #import "AppDelegate.h"
+#import "TRControllerButton.h"
 
 @interface ControllerVC ()
 
@@ -38,6 +39,15 @@
 -(void)receivePin:(NSNumber *)pin
 {
     _got_pin = true;
+}
+
+#pragma mark UIButton events
+
+-(IBAction)pressControllerButton: (UIButton*)sender
+{
+    NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
+    send[@"v"] = [NSNumber numberWithInt: sender.tag];
+    [_websocket_mc sendEvent:@"keyDown" data:send];
 }
 
 #pragma mark ios_stuff
