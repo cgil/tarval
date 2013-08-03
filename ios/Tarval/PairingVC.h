@@ -9,11 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <MBProgressHUD.h>
 
+@protocol PairingVCDelegate<NSObject>
+
+-(void)receivePin: (NSNumber*)pin;
+
+@end
+
 @interface PairingVC : UIViewController
 
 @property (strong, nonatomic) IBOutlet UILabel *label_code;
 @property (strong, nonatomic) MBProgressHUD *hud_loading;
+@property (strong, nonatomic) id<PairingVCDelegate> delegate;
 
+-(IBAction)pressDone: (id)sender;
 -(void)setupListeners;
 -(void)receivePinNotification: (NSNotification *)notification;
 

@@ -8,6 +8,8 @@
 
 #import "ControllerVC.h"
 #import "PairingVC.h"
+#import "WebsocketMC.h"
+#import "AppDelegate.h"
 
 @interface ControllerVC ()
 
@@ -18,13 +20,27 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    AppDelegate *app_delegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    _websocket_mc = app_delegate.websocketModelController;
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
-    PairingVC *pairing_modal = (PairingVC *)[self.storyboard instantiateViewControllerWithIdentifier:@"PairingVC"];
-    [self presentViewController:pairing_modal animated:YES completion:nil];
+    if(!_got_pin) {
+        PairingVC *pairing_modal = (PairingVC *)[self.storyboard instantiateViewControllerWithIdentifier:@"PairingVC"];
+        pairing_modal.delegate = self;
+        [self presentViewController:pairing_modal animated:YES completion:nil];
+    }
 }
+
+#pragma mark PairingVCDelegate
+
+-(void)receivePin:(NSNumber *)pin
+{
+    _got_pin = true;
+}
+
+#pragma mark ios_stuff
 
 -(void)didReceiveMemoryWarning
 {

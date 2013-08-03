@@ -24,7 +24,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Pairing Code" id="XUP-HC-RCi">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="UN2-jx-OnQ"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="UN2-jx-OnQ">
+                                            <connections>
+                                                <action selector="pressDone:" destination="AIb-i4-iWc" id="WBP-ax-Pog"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -176,6 +180,7 @@
         <class className="PairingVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PairingVC.h"/>
             <relationships>
+                <relationship kind="action" name="pressDone:"/>
                 <relationship kind="outlet" name="label_code" candidateClass="UILabel"/>
             </relationships>
         </class>

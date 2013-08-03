@@ -40,6 +40,8 @@
 
 -(void)receivePinNotification:(NSNotification *)notification
 {
+    [self.delegate receivePin: [notification object][@"pin"]];
+    
     NSString *pin = [notification object][@"pin"];
     if([pin length] < 4) {
         for(int i = [pin length]; i < 4; i++) {
@@ -48,9 +50,15 @@
     }
     
     self.label_code.text = pin;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.hud_loading hide: YES];
     });
+}
+
+#pragma mark IBActions
+-(IBAction)pressDone:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark ios_stuff

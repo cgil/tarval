@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PairingVC.h"
+@class WebsocketMC;
 
-@interface ControllerVC : UIViewController
+@interface ControllerVC : UIViewController<PairingVCDelegate> {
+    WebsocketMC *_websocket_mc;
+    BOOL _got_pin;
+}
 
 @end
