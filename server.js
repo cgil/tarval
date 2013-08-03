@@ -3,16 +3,6 @@ var WebSocketServer = require('websocket').server;
 var connStor = {}
 var http = require('http');
 
-var server = http.createServer(function(request, response) {
-	console.log((new Date()) + ' received request for ' + request.url);
-	response.writeHead(404;
-	response.end();
-});
-
-server.listen(8080, function() {
-	console.log((new Date()) + " server is istening on port 8080");
-});
-
 wsServer = new WebSocketServer({
 	httpServer: server, 
 	autoAcceptConnections:true
