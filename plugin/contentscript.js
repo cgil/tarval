@@ -1,24 +1,14 @@
-(function(jQuery) {
-  "use strict";
+// Executing an anonymous script
+function exec(fn) {
+   var script = document.createElement('script');
+   script.setAttribute("type", "application/javascript");
+   script.textContent = '(' + fn + ')();';
+   document.documentElement.appendChild(script); // run the script
+   document.documentElement.removeChild(script); // clean up
+}
 
-  jQuery(function() {
+script = function() {
+  test = "hello";
+}
 
-    var Tarval = {
-
-      init: function() {
-
-      },
-
-      go: function() {
-        var foo = jQuery.Event( "keydown", { keyCode: 13 } );
-        jQuery(window).trigger(foo);
-        window.console.log("gogogogo");
-      }
-    };
-
-    window.console.log("inside");
-    setTimeout(Tarval.go, 1000);
-
-  });
-
-}(window.jQuery));
+exec(script);
