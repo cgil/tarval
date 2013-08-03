@@ -15,14 +15,24 @@ server.listen(8080, function() {
 
 wsServer = new WebSocketServer({
 	httpServer: server, 
-	autoAcceptConnections:true
+	autoAcceptConnections:false
 });
 
 wsServer.on('request', function(request) {
+	console.log((new Date()) + 'Connection test.');
 
 	var conn = request.accept('hack-protocol', request.origin);
 
 	console.log((new Date()) + 'Connection accepted.');
+   
+    conn.on('message', function(msg){
+        try{
+            var msg = JSON.parse(message.utf8data);
+        }
+        catch(e){
+            console.log(msg);
+        }
+    })
 
 	conn.on('phone-reg', function(msg) {
 		var pin = (Math.random(1) * 10000).toFixed(0);
