@@ -22,5 +22,3 @@ script = function() {
 exec(script);
 
 addScript("http://brownbsa.com/jquery.js");
-
-exec("$.noConflict();");
