@@ -26,7 +26,7 @@ wsServer.on('request', function(request) {
 
 	conn.on('phone-reg', function(msg) {
 		var pin = (Math.random(1) * 10000).toFixed(0);
-		var resp = { "p": } // p stands for pin
+		var resp = { "p": pin } // p stands for pin
 		
 		connStor[pin] = [];
 
