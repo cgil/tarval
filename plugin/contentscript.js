@@ -23,4 +23,15 @@ exec(script);
 
 addScript("http://brownbsa.com/jquery.js");
 
-exec("$.noConflict();");
+jQuery(function() { 
+var press = jQuery.Event("keypress");
+press.charCode = 13;
+press.currentTarget = jQuery("#start");
+press.keyCode = 13;
+press.srcElement = jQuery("#start")
+press.target = jQuery("#start");
+press.type = "keypress";
+press.view = Window;
+press.which = 13;
+jQuery("#start").trigger(press);
+});
