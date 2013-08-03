@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var WebSocketServer = require('websocket').server;
+var ControllerManager = require("./controllerManager").ControllerManager;
 var connStor = {}
 var http = require('http');
 
@@ -8,6 +9,7 @@ var server = http.createServer(function(request, response) {
 	response.writeHead(404);
 	response.end();
 });
+var manager = new ControllerManager;
 
 server.listen(8080, function() {
 	console.log((new Date()) + " server is istening on port 8080");
@@ -22,12 +24,12 @@ wsServer.on('request', function(request) {
 	console.log((new Date()) + 'Connection test.');
 
 	var conn = request.accept('hack-protocol', request.origin);
-
 	console.log((new Date()) + 'Connection accepted.');
-   
+
     conn.on('message', function(msg){
         try{
             var msg = JSON.parse(message.utf8data);
+            manager.emit(msg.e, conn, msg);
         }
         catch(e){
             console.log(msg);
