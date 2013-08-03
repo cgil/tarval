@@ -8,8 +8,10 @@ var ControllerManager = function() {
     }
 
     self.on("getPin", function(connection, data) {
-       this.sendMessage(connection, { e: "setPin", pin: (Math.random(1) * 1000).toFixed(0) });
+       connection.pin = (Math.random(1) * 1000).toFixed(0);
+       this.sendMessage(connection, { e: "setPin", pin: connection.pin} );
     });
+
 }
 
 ControllerManager.prototype.__proto__ = EventEmitter.prototype;

@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 var WebSocketServer = require('websocket').server;
-var ControllerManager = require("./controllerManager").ControllerManager;
+var IphoneManager = require("./iphoneManager").ControllerManager;
+var ChromeManager = require("./chromeManager").ControllerManager;
 var connStor = {}
 var http = require('http');
+
+var connectionMaping = {};
 
 var server = http.createServer(function(request, response) {
 	console.log((new Date()) + ' received request for ' + request.url);
 	response.writeHead(404);
 	response.end();
 });
-var manager = new ControllerManager;
+var iphone_manager = new IphoneManager;
+var chrome_manager = new ChromeManager;
 
 server.listen(8080, function() {
 	console.log((new Date()) + " server is istening on port 8080");
@@ -20,49 +24,33 @@ wsServer = new WebSocketServer({
 	autoAcceptConnections:false
 });
 
-wsServer.on('request', function(request) {
-	console.log((new Date()) + 'Connection test.');
+function handleRequest(protocol, manager) {
+    return function(request) {
+        console.log((new Date()) + 'Connection test.');
 
-	var conn = request.accept('hack-protocol', request.origin);
-	console.log((new Date()) + 'Connection accepted.');
-
-    conn.on('message', function(msg){
-        try{
-            var msg = JSON.parse(message.utf8data);
-            manager.emit(msg.e, conn, msg);
+        try {
+            var conn = request.accept(protocol, request.origin);
+        } catch(e) {
+            return;
         }
-        catch(e){
-            console.log(msg);
-        }
-    })
+        console.log((new Date()) + 'Connection accepted.');
 
-	conn.on('phone-reg', function(msg) {
-		var pin = (Math.random(1) * 10000).toFixed(0);
-		var resp = { "p": pin }; // p stands for pin
-		
-		connStor[pin] = [];
+        conn.on('message', function(data){
+            try{
+                var msg = JSON.parse(data.utf8Data);
+                manager.emit(msg.e, conn, msg);
+            }
+            catch(e){
+                console.log("Invalid JSON from client");
+                console.log(data.utf8data);
+            }
+        });
 
-		conn.sendUTF(resp);
-	});
+        conn.on('close', function(reasonCode, description) {
+            console.log((new Date()) + ' Peer ' + conn.remoteAddress + ' disconnected');
+        });
+    };
+}
 
-	conn.on('browser-reg', function(msg) {
-		var data = JSON.parse(msg.utf8Data);
-
-		if (connStor[data.p].indexOf(conn) == -1) {
-			connStor[data.p].push(conn);
-		}
-	});
-
-	conn.on('phone-cmd', function(msg) {
-		var data = JSON.parse(msg.utf8Data);
-		var stor = connStor[data.p];
-
-		for (var i = 0; i < stor.length; i++) {
-			stor[i].sendUTF(msg);
-		}
-	});
-
-	conn.on('close', function(reasonCode, description) {
-		console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected');
-	});
-});
+wsServer.on('request', handleRequest("iphone", iphone_manager));
+wsServer.on('request', handleRequest("chrome", chrome_manager));
