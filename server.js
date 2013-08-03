@@ -13,8 +13,6 @@ server.listen(8080, function() {
 	console.log((new Date()) + " server is istening on port 8080");
 });
 
-server.start();
-
 wsServer = new WebSocketServer({
 	httpServer: server, 
 	autoAcceptConnections:true
