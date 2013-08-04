@@ -33,20 +33,19 @@ function handleRequest(protocol, manager) {
         }
         console.log((new Date()) + 'Connection accepted.');
 
-        self.sendMessage = function(event, data) {
+        conn.sendEvent = function(event, data) {
             data['e'] = event;
-            connection.send(JSON.stringify(data));
+            conn.send(JSON.stringify(data));
         }
 
-        conn.on('message', function(data){
-            try{
+        conn.on('message', function(data) {
+            try {
                 var msg = JSON.parse(data.utf8Data);
-                manager.emit(msg.e, conn, msg);
-            }
-            catch(e){
+            } catch(e) {
                 console.log("Invalid JSON from client");
-                console.log(data.utf8data);
+                return;
             }
+            manager.emit(msg.e, conn, msg);
         });
 
         conn.on('close', function(reasonCode, description) {
