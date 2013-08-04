@@ -66,6 +66,13 @@
         [_websocket_mc sendEvent:@"keyDown" data:send];
     }
 
+    -(IBAction)releaseControllerButton: (UIButton*)sender
+    {
+        NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
+        send[@"v"] = [NSNumber numberWithInt: sender.tag];
+        [_websocket_mc sendEvent:@"keyUp" data:send];
+    }
+
     #pragma mark ios_stuff
 
     -(void)didReceiveMemoryWarning

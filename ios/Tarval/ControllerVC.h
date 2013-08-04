@@ -19,5 +19,6 @@
 @property CMMotionManager *motion_manager;
 
 -(IBAction)pressControllerButton: (UIButton*)sender;
+-(IBAction)releaseControllerButton: (UIButton*)sender;
 
 @end

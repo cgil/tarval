@@ -65,7 +65,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="3DG-Ca-B92"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="ujf-af-cZt"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="rzY-Pq-eda"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="vbU-qS-5w5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9BA-kf-tVY">
@@ -80,7 +82,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="7OU-0a-eDY"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="akc-dM-zgq"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="Gjy-JD-ows"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="jPu-1m-SVR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hHd-MA-S7c">
@@ -95,7 +99,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="Ab4-KA-9sb"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="N3o-3n-RmW"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="HZM-Lu-AgI"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="QTa-FX-cM9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DgJ-MY-Vr9">
@@ -110,7 +116,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="kiW-eQ-gLa"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="sw7-9L-LHy"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="tph-QA-IPf"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="umP-Ph-BZ3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bt7-IW-O39">
@@ -125,7 +133,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="jqm-3J-bvT"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="Og8-Z8-cZC"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="4qK-p6-LHU"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="rde-pS-V4Z"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zFw-Lx-DVm">
@@ -140,7 +150,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="p7j-vA-cBg"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="QJw-YZ-WpI"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="AG5-LB-Xry"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="ouh-xY-7o1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PaE-m4-cXn">
@@ -155,7 +167,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="DaD-Iz-WGO"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="Ltd-YC-8vb"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="ILS-PF-eDF"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="QZk-5S-Zkd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5yB-2a-e1O">
@@ -170,7 +184,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="0GF-YJ-Jf1"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="c0M-K2-hMu"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="N2z-HP-agB"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="pAj-pr-pea"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="30" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gGz-kV-UwI">
@@ -185,7 +201,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressControllerButton:" destination="2" eventType="touchUpInside" id="NK8-mB-Psb"/>
+                                    <action selector="pressControllerButton:" destination="2" eventType="touchDown" id="z9W-4j-wmg"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpOutside" id="9Gm-VK-TKB"/>
+                                    <action selector="releaseControllerButton:" destination="2" eventType="touchUpInside" id="gep-yO-W9D"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -205,6 +223,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ControllerVC.h"/>
             <relationships>
                 <relationship kind="action" name="pressControllerButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="releaseControllerButton:" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="PairingVC" superclassName="UIViewController">
