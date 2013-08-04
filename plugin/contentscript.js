@@ -45,6 +45,7 @@ DataHandler = {
 }
 
 function onRequest(request, sender, sendResponse) {
+    console.log("RECV " + request);
  if (request.action == 'start') {
    DataHandler.mySock = new sockCon('ws://archie.stevegattuso.me:8080');
    DataHandler.mySock.sendPin(request.pin);
