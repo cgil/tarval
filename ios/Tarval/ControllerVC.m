@@ -43,6 +43,7 @@
     {
         if(!_got_pin) {
             PairingVC *pairing_modal = (PairingVC *)[self.storyboard instantiateViewControllerWithIdentifier:@"PairingVC"];
+            pairing_modal.websocket_mc = _websocket_mc;
             pairing_modal.delegate = self;
             [self presentViewController:pairing_modal animated:YES completion:nil];
         }

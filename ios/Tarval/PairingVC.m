@@ -31,6 +31,8 @@
     [self setupListeners];
     self.hud_loading = [MBProgressHUD showHUDAddedTo: self.view animated: YES];
     self.label_code.text = @"";
+    
+    [self.websocket_mc sendEvent: @"getPin" data: nil];
 }
 
 -(void)setupListeners

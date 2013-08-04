@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MBProgressHUD.h>
+#import "WebsocketMC.h"
 
 @protocol PairingVCDelegate<NSObject>
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *label_code;
 @property (strong, nonatomic) MBProgressHUD *hud_loading;
 @property (strong, nonatomic) id<PairingVCDelegate> delegate;
+@property (strong, nonatomic) WebsocketMC *websocket_mc;
 
 -(IBAction)pressDone: (id)sender;
 -(void)setupListeners;
