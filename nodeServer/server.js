@@ -27,6 +27,9 @@ wsServer = new WebSocketServer({
 function handleRequest(protocol, manager) {
     return function(request) {
         try {
+            if(request.requestedProtocols.indexOf(protocol) == -1) {
+                return;
+            }
             var conn = request.accept(protocol, request.origin);
         } catch(e) {
             return;
@@ -54,5 +57,5 @@ function handleRequest(protocol, manager) {
     };
 }
 
-wsServer.on('request', handleRequest("phone", phone_manager));
 wsServer.on('request', handleRequest("client", client_manager));
+wsServer.on('request', handleRequest("phone", phone_manager));

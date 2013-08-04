@@ -14,7 +14,7 @@ var PhoneManager = function(pin_to_client) {
         if(self.pin_to_client[connection.pin] == undefined) {
             return;
         }
-        self.pin_to_client[connection.pin].sendEvent("keyDown", data.v);
+        self.pin_to_client[connection.pin].sendEvent("keyDown", { v: data.v });
     });
 
     self.on("keyUp", function(connection, data){
@@ -22,7 +22,7 @@ var PhoneManager = function(pin_to_client) {
         if(self.pin_to_client[connection.pin] == undefined) {
             return;
         }
-        self.pin_to_client[connection.pin].sendEvent("keyUp", data.v);
+        self.pin_to_client[connection.pin].sendEvent("keyUp", { v: data.v });
     });
 
     self.on("tilt", function(connection, data) {
@@ -30,7 +30,7 @@ var PhoneManager = function(pin_to_client) {
         if(self.pin_to_client[connection.pin] == undefined) {
             return;
         }
-        self.pin_to_client[connection.pin].sendEvent("tilt", data.v);
+        self.pin_to_client[connection.pin].sendEvent("tilt", { v: data.v });
     });
 }
 
