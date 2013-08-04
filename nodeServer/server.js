@@ -1,22 +1,20 @@
 #!/usr/bin/env node
 var WebSocketServer = require('websocket').server;
-var IphoneManager = require("./iphoneManager").ControllerManager;
-var ChromeManager = require("./chromeManager").ControllerManager;
-var connStor = {}
+var PhoneManager = require("./phonemanager").PhoneManager;
+var ClientManager = require("./clientmanager").ClientManager;
 var http = require('http');
-
-var connectionMaping = {};
 
 var server = http.createServer(function(request, response) {
 	console.log((new Date()) + ' received request for ' + request.url);
 	response.writeHead(404);
 	response.end();
 });
-var iphone_manager = new IphoneManager;
-var chrome_manager = new ChromeManager;
+
+var phone_manager = new PhoneManager;
+var client_manager = new ClientManager;
 
 server.listen(8080, function() {
-	console.log((new Date()) + " server is istening on port 8080");
+	console.log((new Date()) + " server is listening on port 8080");
 });
 
 wsServer = new WebSocketServer({
@@ -26,14 +24,17 @@ wsServer = new WebSocketServer({
 
 function handleRequest(protocol, manager) {
     return function(request) {
-        console.log((new Date()) + 'Connection test.');
-
         try {
             var conn = request.accept(protocol, request.origin);
         } catch(e) {
             return;
         }
         console.log((new Date()) + 'Connection accepted.');
+
+        self.sendMessage = function(event, data) {
+            data['e'] = event;
+            connection.send(JSON.stringify(data));
+        }
 
         conn.on('message', function(data){
             try{
@@ -52,5 +53,5 @@ function handleRequest(protocol, manager) {
     };
 }
 
-wsServer.on('request', handleRequest("iphone", iphone_manager));
-wsServer.on('request', handleRequest("chrome", chrome_manager));
+wsServer.on('request', handleRequest("phone", phone_manager));
+wsServer.on('request', handleRequest("client", client_manager));
