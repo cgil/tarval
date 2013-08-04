@@ -49,6 +49,10 @@
             return 0x7D;
         case 37:
             return 0x7B;
+        case 83:
+            return 0x31;
+        case 13:
+            return 0x24;
     }
     
     return 0;

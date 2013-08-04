@@ -30,7 +30,7 @@
     self.motion_manager = [[CMMotionManager alloc] init];
     self.motion_manager.accelerometerUpdateInterval = .050;
     [self.motion_manager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData *data, NSError *error) {
-        if(fabs(data.acceleration.y) < .3) {
+        if(fabs(data.acceleration.y) < .4) {
             if(prev_accel_val != 0) {
                 [_websocket_mc sendEvent:@"stopTilt" data:nil];
             }
