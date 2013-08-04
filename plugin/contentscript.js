@@ -1,37 +1,59 @@
-// Executing an anonymous script
-function exec(fn) {
-   var script = document.createElement('script');
-   script.setAttribute("type", "application/javascript");
-   script.textContent = '(' + fn + ')();';
-   document.documentElement.appendChild(script); // run the script
-   document.documentElement.removeChild(script); // clean up
+DataHandler = {
+
+    mySock : null,
+
+    // Key Functions
+     keyEvt: function(evtCode, jsKeyCode) {
+        var evt = document.createEvent("Events");
+        evt.initEvent(evtCode, true, true);
+
+        evt.view = window;
+        evt.which = jsKeyCode;
+        evt.keyCode = jsKeyCode;
+
+        document.dispatchEvent(evt);
+    },
+
+    keydown: function(jsKeyCode) {
+        DataHandler.keyEvt("keydown", jsKeyCode);
+
+    },
+
+    keyup: function(jsKeyCode) {
+        DataHandler.keyEvt("keyup", jsKeyCode);
+        DataHandler.keyEvt("keypress", jsKeyCode);
+    },
+
+    // WebSockets Callback
+    receiveKeyEvt: function(evtObj) {
+        switch (evtObj.e) {
+        case "press":
+            DataHandler.keydown(evtObj.v);
+            break;
+        case "depress":
+            DataHandler.keyup(evtObj.v);
+            break;
+        case "tilt":
+            break;
+        case "tiltStop":
+            break;
+        default:
+            break;
+        }
+    }
+
 }
 
-function addScript(uri) {
-    var scr = document.createElement('script');
+function onRequest(request, sender, sendResponse) {
+ if (request.action == 'start') {
+   DataHandler.mySock = new sockCon('ws://archie.stevegattuso.me:8080');
+   DataHandler.mySock.sendPin(request.pin);
+ }
+ else if (request.action == 'stop') {
+   DataHandler.mySock.connection.close();
+ }
 
-    scr.setAttribute('src', uri);
+ sendResponse({});
+};
+chrome.extension.onRequest.addListener(onRequest);
 
-    document.head.appendChild(scr);
-}
-
-script = function() {
-  test = "hello";
-}
-
-exec(script);
-
-addScript("http://brownbsa.com/jquery.js");
-
-jQuery(function() { 
-var press = jQuery.Event("keypress");
-press.charCode = 13;
-press.currentTarget = jQuery("#start");
-press.keyCode = 13;
-press.srcElement = jQuery("#start")
-press.target = jQuery("#start");
-press.type = "keypress";
-press.view = Window;
-press.which = 13;
-jQuery("#start").trigger(press);
-});

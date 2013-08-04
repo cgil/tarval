@@ -17,7 +17,7 @@
 
 +(NSArray*) websocketProtocol
 {
-    return [[NSArray alloc] initWithObjects:@"phone", nil];
+    return [[NSArray alloc] initWithObjects:@"client", nil];
 }
 
 @end

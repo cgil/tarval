@@ -11,6 +11,7 @@
 		AAA964E517AD77FC00E174E9 /* PairingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA964E417AD77FC00E174E9 /* PairingVC.m */; };
 		AAA964E917AD857A00E174E9 /* WebsocketMC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA964E817AD857A00E174E9 /* WebsocketMC.m */; };
 		AAA964EC17AD870900E174E9 /* TRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA964EB17AD870900E174E9 /* TRConstants.m */; };
+		AAC2C51717ADEED50095C62D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC2C51617ADEED50095C62D /* CoreMotion.framework */; };
 		AAD5FC9917AD71D9007D9E1D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD5FC9817AD71D9007D9E1D /* UIKit.framework */; };
 		AAD5FC9B17AD71D9007D9E1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD5FC9A17AD71D9007D9E1D /* Foundation.framework */; };
 		AAD5FC9D17AD71D9007D9E1D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD5FC9C17AD71D9007D9E1D /* CoreGraphics.framework */; };
@@ -34,6 +35,7 @@
 		AAA964E817AD857A00E174E9 /* WebsocketMC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebsocketMC.m; sourceTree = "<group>"; };
 		AAA964EA17AD870900E174E9 /* TRConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRConstants.h; sourceTree = "<group>"; };
 		AAA964EB17AD870900E174E9 /* TRConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRConstants.m; sourceTree = "<group>"; };
+		AAC2C51617ADEED50095C62D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		AAD5FC9517AD71D9007D9E1D /* Tarval.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tarval.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD5FC9817AD71D9007D9E1D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AAD5FC9A17AD71D9007D9E1D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAC2C51717ADEED50095C62D /* CoreMotion.framework in Frameworks */,
 				AAD5FC9917AD71D9007D9E1D /* UIKit.framework in Frameworks */,
 				AAD5FC9B17AD71D9007D9E1D /* Foundation.framework in Frameworks */,
 				AAD5FC9D17AD71D9007D9E1D /* CoreGraphics.framework in Frameworks */,
@@ -83,6 +86,7 @@
 		AAD5FC8C17AD71D8007D9E1D = {
 			isa = PBXGroup;
 			children = (
+				AAC2C51617ADEED50095C62D /* CoreMotion.framework */,
 				AAD5FC9E17AD71D9007D9E1D /* Tarval */,
 				AAD5FC9717AD71D9007D9E1D /* Frameworks */,
 				AAD5FC9617AD71D9007D9E1D /* Products */,

@@ -21,15 +21,9 @@
     NSLog(@"Opening connection");
 }
 
--(void)disconnect
-{
-    [self.websocket close];
-}
-
 -(void)sendEvent: (NSString*)event_name data: (NSDictionary*)data
 {
     NSMutableDictionary *send;
-    
     if(data) {
         send = [data mutableCopy];
     } else {
@@ -39,28 +33,11 @@
     send[@"e"] = event_name;
     NSData *json_data = [NSJSONSerialization dataWithJSONObject:send options:0 error:NULL];
     NSString *json_string = [[NSString alloc] initWithData:json_data encoding:NSUTF8StringEncoding];
-    
-    // Store calls made before a connection was completed
-    if(!_conn_open) {
-        if(!_message_queue) {
-            _message_queue = [[NSMutableArray alloc] init];
-        }
-        [_message_queue addObject: json_string];
-        return;
-    }
-    
     [self.websocket send: json_string];
 }
 
-#pragma mark Websocket stuff
 -(void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
-    _conn_open = YES;
-    // Run through all the previous calls
-    for(int i = 0; i < [_message_queue count]; i++) {
-        [self.websocket send: [_message_queue objectAtIndex:i]];
-    }
-    
     NSLog(@"Connection opened");
 }
 
@@ -70,7 +47,6 @@
     NSDictionary *resp = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
     
     NSString *event_name = [[NSString alloc] initWithFormat:@"ws:%@", resp[@"e"]];
-    NSLog(@"Incoming: %@", event_name);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:event_name object:resp];
 }
