@@ -4,18 +4,20 @@ WebSocket.prototype.sendEvent = function(name, data) {
     }
     data['e'] = name;
     this.send(JSON.stringify(data));
-}
-
-var connection = new WebSocket('archit.stevegattuso.me:8080');
-
-var sendPin = function(data){
-    connection.send("bindPin", { pin: data });
 };
 
-connection.onmessage = function(data) {
-    data = JSON.parse(data.utf8Data);
-};
+var sockCon = function(socketAddr) {
+	this.connection = new WebSocket(socketAddr, 'client');
 
-connection.onopen = function(){
-    console.log('Connected.');
+	this.sendPin = function(data) {
+		this.connection.send("bindPin", { pin: data });
+	}
+
+	this.connection.onmessage = function(data) {
+   		DataHandler.receiveKeyEvt(JSON.parse(data.utf8Data));
+	};
+
+	this.connection.onopen = function(){
+    	console.log('Connected.');
+	};
 };
