@@ -31,12 +31,24 @@
     self.motion_manager.accelerometerUpdateInterval = .050;
     [self.motion_manager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData *data, NSError *error) {
         if(fabs(data.acceleration.y) < .3) {
+            if(prev_accel_val != 0) {
+                [_websocket_mc sendEvent:@"stopTilt" data:nil];
+            }
+            prev_accel_val = 0;
             return;
         }
-    
-        NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
-        send[@"v"] = [NSNumber numberWithFloat: data.acceleration.y];
-        [_websocket_mc sendEvent:@"tilt" data:send];
+        
+        if(prev_accel_val == 0) {
+            NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
+            send[@"v"] = [NSNumber numberWithFloat: data.acceleration.y];
+            [_websocket_mc sendEvent:@"tilt" data:send];
+            
+            if(data.acceleration.y > 0) {
+                prev_accel_val = 1;
+            } else {
+                prev_accel_val = -1;
+            }
+        }
     }];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivePinNotification:) name:@"ws:setPin" object:nil];
     NSLog(@"wat");

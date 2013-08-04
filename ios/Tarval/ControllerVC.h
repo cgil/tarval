@@ -14,6 +14,7 @@
 @interface ControllerVC : UIViewController<PairingVCDelegate> {
     WebsocketMC *_websocket_mc;
     BOOL _got_pin;
+    NSInteger prev_accel_val;
 }
 
 @property (strong, nonatomic) CMMotionManager *motion_manager;

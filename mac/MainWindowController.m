@@ -18,6 +18,8 @@
     NSNotificationCenter *notification_center = [NSNotificationCenter defaultCenter];
     [notification_center addObserver:self selector:@selector(keyPress:) name:@"ws:keyDown" object:nil];
     [notification_center addObserver:self selector:@selector(keyRelease:) name:@"ws:keyUp" object:nil];
+    [notification_center addObserver:self selector:@selector(tilt:) name:@"ws:tilt" object:nil];
+    [notification_center addObserver:self selector:@selector(tilt:) name:@"ws:stopTilt" object:nil];
 }
 
 
@@ -52,29 +54,51 @@
     return 0;
 }
 
+// True is down, false is up
+-(void)simulateKey:(NSInteger)key withPressValue:(BOOL)val
+{
+    CGEventSourceRef src = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+    CGEventRef event_ref = CGEventCreateKeyboardEvent(src, key, val);
+    CGEventPost(kCGHIDEventTap, event_ref);
+    CFRelease(src);
+    CFRelease(event_ref);
+}
+
 #pragma mark Websocket events
+
+-(void) tilt:(NSNotification *)notification
+{
+    float value = [[notification object][@"v"] floatValue];
+    
+    NSLog(@"val: %f", value);
+    if(value < 0) {
+        [self simulateKey:0x7B withPressValue:true];
+    } else if(value > 0) {
+        [self simulateKey:0x7C withPressValue:true];
+    } else {
+        [self stopTilt:nil];
+    }
+}
+
+-(void)stopTilt:(NSNotification *)notification
+{
+    [self simulateKey:0x7B withPressValue:false];
+    [self simulateKey:0x7C withPressValue:false];
+}
 
 -(void) keyRelease: (NSNotification*)notification;
 {
     NSNumber *key = [notification object][@"v"];
     NSInteger real = [self translateKey:key];
     
-    CGEventSourceRef src = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-    CGEventRef event_ref = CGEventCreateKeyboardEvent(src, real, false);
-    CGEventPost(kCGHIDEventTap, event_ref);
-    CFRelease(src);
-    CFRelease(event_ref);
+    [self simulateKey:real withPressValue:false];
 }
 -(void) keyPress: (NSNotification*)notification;
 {
     NSNumber *key = [notification object][@"v"];
     NSInteger real = [self translateKey:key];
     
-    CGEventSourceRef src = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-    CGEventRef event_ref = CGEventCreateKeyboardEvent(src, real, true);
-    CGEventPost(kCGHIDEventTap, event_ref);
-    CFRelease(src);
-    CFRelease(event_ref);
+    [self simulateKey:real withPressValue:true];
 }
 
 @end

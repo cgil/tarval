@@ -18,7 +18,10 @@
 
 -(IBAction)pressConnect: (id)sender;
 -(IBAction)pressPair: (id)sender;
+-(void)simulateKey: (NSInteger)key withPressValue: (BOOL)val;
 -(void)keyPress: (NSNotification*)notification;
 -(void)keyRelease: (NSNotification*)notification;
+-(void)tilt: (NSNotification*)notification;
+-(void)stopTilt: (NSNotification*)notification;
 
 @end
