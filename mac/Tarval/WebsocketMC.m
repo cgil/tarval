@@ -47,7 +47,6 @@
     NSDictionary *resp = [NSJSONSerialization JSONObjectWithData:[message dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
     
     NSString *event_name = [[NSString alloc] initWithFormat:@"ws:%@", resp[@"e"]];
-    NSLog(@"Incoming: %@", event_name);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:event_name object:resp];
 }

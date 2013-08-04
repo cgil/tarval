@@ -16,8 +16,8 @@
 -(void)listenEvents
 {
     NSNotificationCenter *notification_center = [NSNotificationCenter defaultCenter];
-    
-    [notification_center addObserver:self selector:@selector(keyPress:) name:@"evt:keyDown" object:nil];
+    [notification_center addObserver:self selector:@selector(keyPress:) name:@"ws:keyDown" object:nil];
+    [notification_center addObserver:self selector:@selector(keyRelease:) name:@"ws:keyUp" object:nil];
 }
 
 
@@ -26,50 +26,55 @@
 {
     _websocket_mc = [[WebsocketMC alloc] init];
     [_websocket_mc connect];
+    [self listenEvents];
 }
 
 -(IBAction)pressPair: (id)sender
 {
     NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
     send[@"pin"] = [NSNumber numberWithInt: [[field_pair_code stringValue] integerValue]];
-    NSLog(@"hello");
     [_websocket_mc sendEvent:@"bindPin" data:send];
 }
 
-#pragma mark Websocket events
--(void) keyPress: (NSNotification*)notification;
+-(NSInteger)translateKey: (NSNumber*)key
 {
-    NSLog(@"WASSUP!");
+    switch([key integerValue]) {
+        case 38:
+            return 0x7E;
+        case 39:
+            return 0x7C;
+        case 40:
+            return 0x7D;
+        case 37:
+            return 0x7B;
+    }
+    
+    return 0;
 }
 
--(void)pressLeft
+#pragma mark Websocket events
+
+-(void) keyRelease: (NSNotification*)notification;
 {
-    NSLog(@"Hello world");
+    NSNumber *key = [notification object][@"v"];
+    NSInteger real = [self translateKey:key];
+    
     CGEventSourceRef src = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-
-    CGEventRef left_down = CGEventCreateKeyboardEvent(src, 0x7B, true);
-    CGEventRef left_up = CGEventCreateKeyboardEvent(src, 0x7B, false);
-    CGEventRef up_down = CGEventCreateKeyboardEvent(src, 0x7E, false);
-    CGEventRef up_up = CGEventCreateKeyboardEvent(src, 0x7E, true);
-
-    CGEventTapLocation loc = kCGHIDEventTap; // kCGSessionEventTap also works
-    
-    if(pressing) {
-        CGEventPost(loc, up_up);
-        CGEventPost(loc, left_up);
-        pressing = false;
-    }
-    else {
-        CGEventPost(loc, up_down);
-        CGEventPost(loc, left_down);
-        pressing = true;
-    }
-    
-    CFRelease(left_up);
-    CFRelease(left_down);
-    CFRelease(up_up);
-    CFRelease(up_down);
+    CGEventRef event_ref = CGEventCreateKeyboardEvent(src, real, false);
+    CGEventPost(kCGHIDEventTap, event_ref);
     CFRelease(src);
+    CFRelease(event_ref);
+}
+-(void) keyPress: (NSNotification*)notification;
+{
+    NSNumber *key = [notification object][@"v"];
+    NSInteger real = [self translateKey:key];
+    
+    CGEventSourceRef src = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+    CGEventRef event_ref = CGEventCreateKeyboardEvent(src, real, true);
+    CGEventPost(kCGHIDEventTap, event_ref);
+    CFRelease(src);
+    CFRelease(event_ref);
 }
 
 @end

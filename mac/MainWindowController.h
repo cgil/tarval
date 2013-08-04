@@ -19,5 +19,6 @@
 -(IBAction)pressConnect: (id)sender;
 -(IBAction)pressPair: (id)sender;
 -(void)keyPress: (NSNotification*)notification;
+-(void)keyRelease: (NSNotification*)notification;
 
 @end
