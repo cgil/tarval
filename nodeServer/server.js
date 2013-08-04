@@ -10,8 +10,10 @@ var server = http.createServer(function(request, response) {
 	response.end();
 });
 
-var phone_manager = new PhoneManager;
-var client_manager = new ClientManager;
+var pin_to_client = {};
+
+var phone_manager = new PhoneManager(pin_to_phone);
+var client_manager = new ClientManager(pin_to_phone);
 
 server.listen(8080, function() {
 	console.log((new Date()) + " server is listening on port 8080");

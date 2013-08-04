@@ -1,11 +1,12 @@
 var EventEmitter = require("events").EventEmitter;
 
-var ClientManager = function() {
+var ClientManager = function(pin_to_client) {
     var self = this;
+    self.pin_to_client = pin_to_client;
 
-    self.sendMessage = function(connection, data) {
-        connection.send(JSON.stringify(data));
-    }
+    self.on("bindPin", function(connection, data) {
+        self.pin_to_client[data.pin] = connection;
+    });
 }
 
 ClientManager.prototype.__proto__ = EventEmitter.prototype;
