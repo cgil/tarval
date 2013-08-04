@@ -24,6 +24,14 @@ var PhoneManager = function(pin_to_client) {
         }
         self.pin_to_client[connection.pin].sendEvent("keyUp", data.v);
     });
+
+    self.on("tilt", function(connection, data) {
+        console.log("[pin:" + connection.pin + "] Event tilt on " + data.v);
+        if(self.pin_to_client[connection.pin] == undefined) {
+            return;
+        }
+        self.pin_to_client[connection.pin].sendEvent("tilt", data.v);
+    });
 }
 
 PhoneManager.prototype.__proto__ = EventEmitter.prototype;
