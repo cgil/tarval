@@ -12,12 +12,12 @@
 
 +(NSURL*) websocketEndpoint
 {
-    return [[NSURL alloc] initWithString:@"ws://kparikh.com:8080"];
+    return [[NSURL alloc] initWithString:@"ws://archie.stevegattuso.me:8080"];
 }
 
 +(NSArray*) websocketProtocol
 {
-    return [[NSArray alloc] initWithObjects:@"iphone", nil];
+    return [[NSArray alloc] initWithObjects:@"phone", nil];
 }
 
 @end

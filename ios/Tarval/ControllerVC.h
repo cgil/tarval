@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreMotion/CoreMotion.h>
 #import "PairingVC.h"
 @class WebsocketMC;
 
@@ -14,6 +15,8 @@
     WebsocketMC *_websocket_mc;
     BOOL _got_pin;
 }
+
+@property CMMotionManager *motion_manager;
 
 -(IBAction)pressControllerButton: (UIButton*)sender;
 
