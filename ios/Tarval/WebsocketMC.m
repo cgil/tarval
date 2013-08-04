@@ -23,6 +23,7 @@
 
 -(void)disconnect
 {
+    _conn_open = NO;
     [self.websocket close];
 }
 
@@ -52,6 +53,13 @@
     [self.websocket send: json_string];
 }
 
+-(void)restorePin
+{
+    NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
+    send[@"pin"] = self.pin;
+    [self sendEvent:@"restorePin" data:send];
+}
+
 #pragma mark Websocket stuff
 -(void)webSocketDidOpen:(SRWebSocket *)webSocket
 {
@@ -60,6 +68,7 @@
     for(int i = 0; i < [_message_queue count]; i++) {
         [self.websocket send: [_message_queue objectAtIndex:i]];
     }
+    _message_queue = nil;
     
     NSLog(@"Connection opened");
 }
@@ -71,6 +80,11 @@
     
     NSString *event_name = [[NSString alloc] initWithFormat:@"ws:%@", resp[@"e"]];
     NSLog(@"Incoming: %@", event_name);
+    
+    // The pin is important, store it
+    if([event_name isEqualToString:@"ws:setPin"]) {
+        self.pin = resp[@"pin"];
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:event_name object:resp];
 }

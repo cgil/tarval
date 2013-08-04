@@ -20,6 +20,7 @@
 
 -(void)connect;
 -(void)disconnect;
+-(void)restorePin;
 -(void)sendEvent: (NSString*)event_name data: (NSDictionary*)data;
 
 @end

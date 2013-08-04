@@ -19,6 +19,7 @@
 @implementation ControllerVC
 
 @synthesize motion_manager;
+@synthesize label_pin;
 
 -(void)viewDidLoad
 {
@@ -29,60 +30,67 @@
     self.motion_manager = [[CMMotionManager alloc] init];
     self.motion_manager.accelerometerUpdateInterval = .050;
     [self.motion_manager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData *data, NSError *error) {
-            if(fabs(data.acceleration.y) < .3) {
-                return;
-            }
-        
-            NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
-            send[@"v"] = [NSNumber numberWithFloat: data.acceleration.y];
-            [_websocket_mc sendEvent:@"tilt" data:send];
-        }];
-    }
-
-    -(void) viewDidAppear:(BOOL)animated
-    {
-        if(!_got_pin) {
-            PairingVC *pairing_modal = (PairingVC *)[self.storyboard instantiateViewControllerWithIdentifier:@"PairingVC"];
-            pairing_modal.websocket_mc = _websocket_mc;
-            pairing_modal.delegate = self;
-            [self presentViewController:pairing_modal animated:YES completion:nil];
+        if(fabs(data.acceleration.y) < .3) {
+            return;
         }
-    }
-
-    #pragma mark PairingVCDelegate
-
-    -(void)receivePin:(NSNumber *)pin
-    {
-        _got_pin = true;
-    }
-
-    #pragma mark CoreMotion stuff
-
-    #pragma mark UIButton events
-
-    -(IBAction)pressControllerButton: (UIButton*)sender
-    {
+    
         NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
-        send[@"v"] = [NSNumber numberWithInt: sender.tag];
-        [_websocket_mc sendEvent:@"keyDown" data:send];
+        send[@"v"] = [NSNumber numberWithFloat: data.acceleration.y];
+        [_websocket_mc sendEvent:@"tilt" data:send];
+    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivePinNotification:) name:@"ws:setPin" object:nil];
+    NSLog(@"wat");
+}
+
+-(void)receivePinNotification:(NSNotification *)notification
+{
+    self.label_pin.text = [notification object][@"pin"];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    if(!_got_pin) {
+        PairingVC *pairing_modal = (PairingVC *)[self.storyboard instantiateViewControllerWithIdentifier:@"PairingVC"];
+        pairing_modal.websocket_mc = _websocket_mc;
+        pairing_modal.delegate = self;
+        [self presentViewController:pairing_modal animated:YES completion:nil];
     }
+}
 
-    -(IBAction)releaseControllerButton: (UIButton*)sender
-    {
-        NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
-        send[@"v"] = [NSNumber numberWithInt: sender.tag];
-        [_websocket_mc sendEvent:@"keyUp" data:send];
-    }
+#pragma mark PairingVCDelegate
 
-    #pragma mark ios_stuff
+-(void)receivePin:(NSNumber *)pin
+{
+    _got_pin = true;
+}
 
-    -(void)didReceiveMemoryWarning
-    {
-        [super didReceiveMemoryWarning];
-        // Dispose of any resources that can be recreated.
-    }
+#pragma mark CoreMotion stuff
 
-    -(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation
+#pragma mark UIButton events
+
+-(IBAction)pressControllerButton: (UIButton*)sender
+{
+    NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
+    send[@"v"] = [NSNumber numberWithInt: sender.tag];
+    [_websocket_mc sendEvent:@"keyDown" data:send];
+}
+
+-(IBAction)releaseControllerButton: (UIButton*)sender
+{
+    NSMutableDictionary *send = [[NSMutableDictionary alloc] init];
+    send[@"v"] = [NSNumber numberWithInt: sender.tag];
+    [_websocket_mc sendEvent:@"keyUp" data:send];
+}
+
+#pragma mark ios_stuff
+
+-(void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(UIInterfaceOrientation) preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationLandscapeLeft;
 }

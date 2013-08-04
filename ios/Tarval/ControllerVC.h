@@ -16,9 +16,11 @@
     BOOL _got_pin;
 }
 
-@property CMMotionManager *motion_manager;
+@property (strong, nonatomic) CMMotionManager *motion_manager;
+@property (strong, nonatomic) IBOutlet UILabel *label_pin;
 
 -(IBAction)pressControllerButton: (UIButton*)sender;
 -(IBAction)releaseControllerButton: (UIButton*)sender;
+-(void)receivePinNotification: (NSNotification*)notification;
 
 @end
