@@ -15,6 +15,28 @@ function addScript(uri) {
     document.head.appendChild(scr);
 }
 
+function keyEvt(evtCode, jsKeyCode) {
+    var evt = document.createEvent("Events");
+    evt.initEvent(evtCode, true, true);
+
+    evt.view = window;
+    evt.which = jsKeyCode;
+    evt.keyCode = jsKeyCode;
+
+    document.dispatchEvent(evt);
+}
+
+function keydown(jsKeyCode) {
+    keyEvt("keydown", jsKeyCode);
+
+}
+
+function keyup(jsKeyCode) {
+    keyEvt("keyup", jsKeyCode);
+    keyEvt("keypress", jsKeyCode);
+}
+
+
 script = function() {
   test = "hello";
 }
