@@ -4,6 +4,6 @@
     "author": "us",
     "version": "0.1.0",
     "dependencies": {
-        "websocket": "1.0.x",
+        "websocket": "1.0.x"
     }
 }
