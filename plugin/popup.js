@@ -5,13 +5,6 @@
 
     $('#disconnect').hide();
 
-    var Pop = {
-
-      init: function() {
-
-      }
-    };
-
     $('#connect').click(function() {
       var pin = $('#pin').val();
 
@@ -21,10 +14,26 @@
         $('#connect').hide();
         $('#disconnect').show();
 
-        chrome.runtime.sendMessage({action:'start', pin:pin}, function(response) {
-          console.log(response);
-          $('#status').text('Connected.');
+        // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        //   chrome.tabs.sendMessage(tabs[0].id, {action:'start', pin:pin}, function(response) {
+        //     console.log(response);
+        //   });
+        // });
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, {action:'stop', pin:pin}, function(response) {
+            console.log(response);
+          });
+          // chrome.tabs.sendRequest(tabs[0].id, {action:'stop', pin:pin}, function(response) {
+          //   console.log('Start action sent');
+          // });
         });
+
+
+        // chrome.runtime.sendMessage({action:'start', pin:pin}, function(response) {
+        //   console.log(response);
+        //   $('#status').text('Connected.');
+        // });
       }
     
     });
@@ -35,10 +44,19 @@
       $('#disconnect').hide();
       $('#connect').show();
 
-        chrome.runtime.sendMessage({action:'stop', pin:pin}, function(response) {
-          console.log(response);
-          $('#status').text('Connected.');
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        // chrome.tabs.sendMessage(tabs[0].id, {action:'stop', pin:pin}, function(response) {
+        //   console.log(response);
+        // });
+        chrome.tabs.sendRequest(tabs[0].id, {action:'stop', pin:pin}, function(response) {
+          console.log('Start action sent');
         });
+      });
+
+        // chrome.runtime.sendMessage({action:'stop', pin:pin}, function(response) {
+        //   console.log(response);
+        //   $('#status').text('Connected.');
+        // });
 
       $('#status').text('Disconnected.');
     });

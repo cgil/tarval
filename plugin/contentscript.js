@@ -1,7 +1,5 @@
 DataHandler = {
 
-    mySock : null,
-
     // Key Functions
      keyEvt: function(evtCode, jsKeyCode) {
         var evt = document.createEvent("Events");
@@ -44,17 +42,58 @@ DataHandler = {
 
 }
 
-function onRequest(request, sender, sendResponse) {
-    console.log("RECV " + request);
- if (request.action == 'start') {
-   DataHandler.mySock = new sockCon('ws://archie.stevegattuso.me:8080');
-   DataHandler.mySock.sendPin(request.pin);
- }
- else if (request.action == 'stop') {
-   DataHandler.mySock.connection.close();
- }
+chrome.extension.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+     if (request.action == 'start' && request.pin != undefined && request.pin != "") {
+       SockCon.init('ws://archie.stevegattuso.me:8080', request.pin);
+     }
+     else if (request.action == 'stop') {
+       SockCon.connection.close();
+     }
 
- sendResponse({});
-};
-chrome.extension.onRequest.addListener(onRequest);
+});
+chrome.tabs.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+     if (request.action == 'start' && request.pin != undefined && request.pin != "") {
+       SockCon.init('ws://archie.stevegattuso.me:8080', request.pin);
+     }
+     else if (request.action == 'stop') {
+       SockCon.connection.close();
+     }
+
+});
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+     if (request.action == 'start' && request.pin != undefined && request.pin != "") {
+       SockCon.init('ws://archie.stevegattuso.me:8080', request.pin);
+     }
+     else if (request.action == 'stop') {
+       SockCon.connection.close();
+     }
+
+});
+
+// function onRequest(request, sender, sendResponse) {
+//     console.log("RECV " + request);
+ // if (request.action == 'start') {
+ //   DataHandler.mySock = new sockCon('ws://archie.stevegattuso.me:8080');
+ //   DataHandler.mySock.sendPin(request.pin);
+ // }
+ // else if (request.action == 'stop') {
+ //   DataHandler.mySock.connection.close();
+ // }
+
+//  sendResponse({});
+// };
+// chrome.extension.onRequest.addListener(onRequest);
 
